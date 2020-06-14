@@ -1,0 +1,37 @@
+$primary : #5263FF;
+$primary-dark : rgb(72, 89, 247);
+$font-idle: #777;
+$font-primary: #322F56;
+$font-neutral: #7E8DA4;
+$danger: #FF254C;
+$table-border: #c1c1c1;
+$table-disable: #f9f9f9;
+
+$neutral : #ABABAB;
+$neutral-dark : #7D7D7D;
+$neutral-softer : #F7F7F7;
+$bg-textarea : #f5f5f5;
+$black : #333333;
+$placeholder : #b8b8b8;
+$outline : #e6e6e6;
+$form-outline : #2D8FEB;
+
+:export {
+    primary : $primary;
+    fontPrimary : $font-primary;
+    fontIdle : $font-idle;
+    fontNeutral : $font-neutral;
+    tableBorder : $table-border;
+    tableDisable : $table-disable;
+
+    danger : $danger;
+    neutral : $neutral;
+    neutralDark : $neutral-dark;
+    neutralSofter : $neutral-softer;
+    
+    bgTextarea : $bg-textarea;
+    black : $black;
+    placeholder : $placeholder;
+    outline : $outline;
+    formOutline : $form-outline;
+}

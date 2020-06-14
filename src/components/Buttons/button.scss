@@ -1,0 +1,103 @@
+@import '../../assets/colors.scss';
+
+.btn {
+    font-weight: 500;
+    font-size: 1rem;
+    padding: .5rem 1.5rem;
+    letter-spacing: .5px;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid $neutral;
+    cursor: pointer !important;
+    transition: all .2s ease-in-out;
+
+    &.isNotVisible {
+        display: none !important;
+    }
+    
+    &:focus {
+        outline: 0;
+        box-shadow: none !important;
+    }
+}
+
+
+.primary {
+    color: #fff !important;
+    background-color: $primary-dark;
+    border: 1px solid $primary-dark;
+}
+.primary-outline {
+    background-color: transparent;
+    border: 1px solid $primary-dark;
+    color: $primary-dark;
+
+    &.active {
+        background-color: $primary-dark !important;
+        color: #fff;
+    }
+}
+.primary:hover, .primary-outline:hover {
+    background-color: $primary-dark;
+    border: 1px solid $primary-dark;
+    color: #fff !important;
+}
+
+.danger {
+    color: #fff;
+    background-color: $danger;
+    border: 1px solid $danger;
+}
+.danger-outline {
+    background-color: transparent;
+    border: 1px solid $danger;
+    color: $danger;
+
+    &.active {
+        background-color: $danger !important;
+        color: #fff;
+    }
+}
+.danger:hover, .danger-outline:hover {
+    color: #fff;
+    background-color: $danger;
+    border: 1px solid $danger;
+    color: #fff !important;
+}
+
+.round {
+    border-radius: 25px !important;
+    padding: .75rem 1.75rem !important;
+}
+
+/* =================
+        SIZE
+================= */
+// Default (normal size)
+// font-size: 1rem;
+// padding: .5rem 1.5rem;
+
+.sm {
+    font-weight: normal;
+    font-size: 1em;
+    padding : .3rem 1rem !important;
+}
+
+.lg {
+    padding: .75rem 1.75rem !important;
+}
+
+.jumbo {
+    padding : 1rem 2.25rem !important;
+}
+
+.stacked {
+    width: 100% !important;
+
+}
+
+.disabled {
+    opacity: .6;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
