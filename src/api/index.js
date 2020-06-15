@@ -62,7 +62,7 @@ const requestNewToken = async () => {
   return new Promise((resolve, reject) => {
     newToken({
       method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}/info`,
+      url: `${process.env.REACT_APP_BASE_URL}api/info`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("refresh_jwt")}`,

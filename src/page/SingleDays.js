@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { useHistory, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import { format } from 'date-fns';
 import {baseUrl} from '../api';
-import color from '../assets/colors.scss';
+// import color from '../assets/colors.scss';
 
 import {Button} from '../components/Buttons';
 import BaseTableWithAction from '../components/Table/BaseTableWithAction';
 
-const SingleDays = () => {
+const SingleDays = (props) => {
     const params = useParams();
+    const location = useLocation();
     
     const [data, setData] = useState([])
-    const [currentId, setCurrentId] = useState(0)
+    const [totalVisitor, setTotalVisitor] = useState(0);
+    const [currentId, setCurrentId] = useState(0);
 
     useEffect(() => {
         baseUrl.get(`api/list-kunjungan?page=1&search=${params.date}`)
         .then(res => {
             console.log(res.data);
             setData(res.data.records);
+            setTotalVisitor(res.data.total[0].totalRecords)
         })
         .catch(err => {
             console.log(err.response);
@@ -36,11 +40,6 @@ const SingleDays = () => {
             accessor : 'nama',
             sortType: 'basic',
             width: 150
-        },
-        {
-            Header : 'Tanggal Hadir',
-            accessor : 'tanggal',
-            sortType: 'basic',
         },
         {
             Header : 'Keperluan',
@@ -72,8 +71,11 @@ const SingleDays = () => {
     ]
 
     return (
-        <div>
-            <h2>{params.date}</h2>
+        <Div>
+            <div className='single_header'>
+                <h2>{format(location.state.selectedDate, 'PPPP')}</h2>
+                <span>{totalVisitor} visitors</span>
+            </div>
             <BaseTableWithAction 
                 columns={columns} 
                 data={data}
@@ -84,10 +86,21 @@ const SingleDays = () => {
                     }}/>
                 )}
             />
-        </div>
+        </Div>
     )
 }
 export default SingleDays
+
+const Div = styled.div`
+    .single_header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+
+        h2 {
+            margin-bottom: .5rem;
+        }
+    }
+`
 
 const Action = ({onClick}) => {
     return (

@@ -12,11 +12,27 @@ import {
 } from 'date-fns';
 import color from '../../assets/colors.scss';
 
+import Header from './Header'
 import DaysCell from './DaysCell';
 import WeekdaysCell from './WeekdaysCell';
+import { baseUrl } from '../../api';
 
 const MainCalendar = () => {
+    const [isLoaded, setLoaded] = useState(false)
     const [currentMonth, setCurrentMonth] = useState(new Date())
+    const [totalVisitorPerDay, setTotalPerDay] = useState([])
+
+    useEffect(() => {
+        baseUrl.get(`api/calendar/monthly?tanggal=${format(currentMonth, 'yyyy-MM-dd')}`)
+        .then(res => {
+            console.log(res.data);
+            setTotalPerDay(res.data)
+            setLoaded(true)
+        })
+        .catch(err => {
+            console.log(err.response);
+        })
+    }, [])
 
     const renderWeekdays = useCallback(() => {
         const dateFormat = 'EEEE'
@@ -34,7 +50,7 @@ const MainCalendar = () => {
                 {weekdays}
             </div>
         )
-    }, [])
+    }, [currentMonth])
 
     const renderDaysCell = useCallback(() => {
         const monthStart = startOfMonth(currentMonth);
@@ -51,13 +67,18 @@ const MainCalendar = () => {
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
                 let setDay = format(day, dateFormat)
+                let currentDate = format(day, 'yyyy-MM-dd')
+                let filterTotatVisitor = totalVisitorPerDay.filter(x => x.tanggal === currentDate)
+                let totalVisitor = filterTotatVisitor.length > 0 ? filterTotatVisitor[0].total : ''
                 store = [
                     ...store, 
                     <DaysCell 
                         day={setDay} 
-                        date={format(day, 'yyyy-MM-dd')}
+                        selectedDate={day} 
+                        currentDate={currentDate}
+                        totalVisitor={totalVisitor}
                         isDisabled={!isSameMonth(day, monthStart)} 
-                        isActive={isSameDay(day, currentMonth)}
+                        isActive={isSameDay(day, currentMonth) && isSameMonth(day, new Date())}
                     />
                 ]
                 day = addDays(day, 1);
@@ -67,16 +88,18 @@ const MainCalendar = () => {
         }
 
         return endResult
-    }, [])
+    }, [currentMonth, totalVisitorPerDay])
     
 
     return (
         <Div>
+            <Header month={currentMonth} setMonth={x => setCurrentMonth(x)} />
+
             <div className='weekdays'>
                 {renderWeekdays()}
             </div>
             <div className='days'>
-                {renderDaysCell()}
+                { isLoaded && renderDaysCell()}
             </div>
         </Div>
     )

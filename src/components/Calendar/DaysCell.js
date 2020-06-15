@@ -1,14 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import color from '../../assets/colors.scss';
 import { rgba } from 'polished';
 
-const DaysCell = ({ day, visitor, date, isActive, isDisabled }) => {
+const DaysCell = ({ 
+    day, 
+    currentDate, 
+    selectedDate,
+    totalVisitor = '', 
+    isActive, 
+    isDisabled 
+}) => {  
+
     return (
-        <Div to={`/single/${date}`} className={`cell ${isActive ? 'active' : ''} ${isDisabled ? 'disabled' : ''}`}>
+        <Div 
+            to={{
+                pathname: `/single/${currentDate}`,
+                state: {selectedDate}
+            }} 
+            className={`cell ${isActive ? 'active' : ''} ${isDisabled ? 'disabled' : ''}`}
+        >
             <span className='day'>{day}</span>
-            <div className='visitor'>{visitor}</div>
+            <div className='visitor'>{totalVisitor}</div>
         </Div>
     )
 }

@@ -1,31 +1,47 @@
 import React from 'react'
 import styled from 'styled-components';
+import { format, addMonths } from 'date-fns';
 import { icon_chevronLeft, icon_chevronRight } from '../Icon';
+import color from '../../assets/colors.scss';
 
-const Header = () => {
+const Header = ({ month, setMonth }) => {
     return (
         <Div>
-            <div className="icon prev">{icon_chevronLeft}</div>
-            <div className='current_month'>
-                <h1>JUNI 2020</h1>
+            <div className="icon prev" onClick={() => setMonth(addMonths(month, -1))}>
+                {icon_chevronLeft}
             </div>
-            <div className="icon next">{icon_chevronRight}</div>
+            <div className='current_month'>
+                <h1>{format(month, 'MMMM yyyy')}</h1>
+            </div>
+            <div className="icon next" onClick={() => setMonth(addMonths(month, 1))}>
+                {icon_chevronRight}
+            </div>
         </Div>
     )
 }
 export default Header;
 
 const Div = styled.div`
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
 
     .current_month {
-        margin: 0rem 2.5rem;
+        margin: 0rem 1.5rem;
     }
 
-    .icon svg {
-        font-size: 22px;
+    .icon {
+        padding: 1rem;
+        cursor: pointer;
+        transition: all .1s ease-in-out;
+
+        svg {
+            font-size: 22px;
+        }
+
+        &:hover {
+            color: ${color.primary};
+        }
     }
 `
