@@ -10,6 +10,7 @@ import {
     isSameMonth,
     isSameDay
 } from 'date-fns';
+import id from 'date-fns/locale/id';
 import color from '../../assets/colors.scss';
 
 import Header from './Header'
@@ -41,7 +42,7 @@ const MainCalendar = () => {
         const startDate = startOfWeek(currentMonth);
 
         for (let i = 0; i < 7; i++) {
-            let weekdaysName = format(addDays(startDate, i), dateFormat)
+            let weekdaysName = format(addDays(startDate, i), dateFormat, {locale: id})
             weekdays = [...weekdays, <WeekdaysCell key={i} name={weekdaysName} />]
         }
 

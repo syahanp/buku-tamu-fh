@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
 import ReactTooltip from 'react-tooltip'
-import { icon_hint } from '../icon';
+// import { icon_hint } from '../Icon';
 import './form.scss';
 
 const SelectInput = ({
@@ -25,14 +25,15 @@ const SelectInput = ({
                 {
                     hint && 
                     <span data-tip data-for={name} className='input_hint'>
-                        {icon_hint}
+                        {/* {icon_hint} */}
                     </span>
                 }
             </p>
             
             <Select
                 {...props}
-                classNamePrefix="select"
+                className="defaultSelect_container"
+                classNamePrefix="defaultSelect"
                 name={name}
                 value={value}
                 defaultValue={defaultValue}

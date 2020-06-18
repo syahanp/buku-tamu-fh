@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import color from '../../assets/colors.scss';
 import { rgba } from 'polished';
@@ -64,7 +63,7 @@ const Div = styled(Link)`
         justify-content: center;
         align-items: center;
         font-weight: 700;
-        color: #eee;
+        color: #e8e8e8;
         font-size: 38px;
         transition: .2s ease-in-out;
     }

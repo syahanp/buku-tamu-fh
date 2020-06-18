@@ -1,22 +1,20 @@
 @import '../../assets/colors.scss';
 
 input {
-    border: 0;
-    height: 50px;
     width: 100%;
-    border-radius: 0;
+    padding-bottom: 14px;
+    padding-top: 14px;
 }
 
 .input_label {
     color: $neutral-dark;
-    font-size: 14px;
+    font-size: 15px;
     margin-bottom: .25rem !important;
 }
 .input_error {
     color: $danger;
     font-size: 14px;
 }
-
 .input_hint {
     display: inline;
     margin-left: .25rem;
@@ -74,5 +72,30 @@ input {
     ul li {
         color: $danger;
         list-style-type: disc;
+    }
+}
+
+
+.defaultSelect_container {
+    
+    .defaultSelect__control {
+        border: none;
+        background-color: #fff !important;
+        border: 1px solid #d8d8d8 !important;
+        padding: .25rem 0rem;
+        min-height: 48px;
+
+        .defaultSelect_input__value-container {
+            .defaultSelect_input__single-value {
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+
+        .defaultSelect__indicators {
+            .defaultSelect__indicator-separator {
+                display: none;
+            }
+        }
     }
 }

@@ -59,32 +59,40 @@ const InputPassword = (props) => {
 }
 export default InputPassword;
 
+
 const Div = styled.div`
     position: relative;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
 `
 
 const Input = styled.input`
     width: 100% !important;
     padding: .25rem .75rem !important;
-    border: 1px solid #dce2e5 !important;
-    background-color: ${color.bgTextarea} !important;
+    height: 48px;
+    border: 1px solid #d8d8d8 !important;
+    background-color: #fff !important;
     border-radius: 3px !important;
     outline: none;
     color: ${color.black};
+    font-weight: 500;
     transition: all .15s ease;
+
+    &::placeholder {
+        color: ${color.neutral};
+        font-weight: 500;
+    }
 
     &:focus {
         background-color: #fff !important;
         border: 1px solid ${color.primary} !important;
     }
-`;
+`
 
 const Visibility = styled.div`
     color: ${props => props.color};
     position: absolute;
     right: 1rem;
-    top: calc(50% + 6px);
+    top: calc(50%);
     cursor: pointer;
     font-size: 18px;
     user-select: none;

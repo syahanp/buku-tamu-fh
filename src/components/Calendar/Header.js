@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { format, addMonths } from 'date-fns';
+import id from 'date-fns/locale/id';
 import { icon_chevronLeft, icon_chevronRight } from '../Icon';
 import color from '../../assets/colors.scss';
 
@@ -11,7 +12,7 @@ const Header = ({ month, setMonth }) => {
                 {icon_chevronLeft}
             </div>
             <div className='current_month'>
-                <h1>{format(month, 'MMMM yyyy')}</h1>
+                <h1>{format(month, 'MMMM yyyy', {locale: id})}</h1>
             </div>
             <div className="icon next" onClick={() => setMonth(addMonths(month, 1))}>
                 {icon_chevronRight}
@@ -27,12 +28,8 @@ const Div = styled.div`
     justify-content: center;
     align-items: center;
 
-    .current_month {
-        margin: 0rem 1.5rem;
-    }
-
     .icon {
-        padding: 1rem;
+        padding: 1rem 1rem;
         cursor: pointer;
         transition: all .1s ease-in-out;
 

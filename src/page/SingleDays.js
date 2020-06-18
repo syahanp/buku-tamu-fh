@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import id from 'date-fns/locale/id';
 import {baseUrl} from '../api';
 // import color from '../assets/colors.scss';
 
 import {Button} from '../components/Buttons';
 import BaseTableWithAction from '../components/Table/BaseTableWithAction';
 
-const SingleDays = (props) => {
+const SingleDays = () => {
     const params = useParams();
     const location = useLocation();
     
     const [data, setData] = useState([])
     const [totalVisitor, setTotalVisitor] = useState(0);
-    const [currentId, setCurrentId] = useState(0);
 
     useEffect(() => {
         baseUrl.get(`api/list-kunjungan?page=1&search=${params.date}`)
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             setData(res.data.records);
             setTotalVisitor(res.data.total[0].totalRecords)
         })
@@ -48,15 +48,16 @@ const SingleDays = (props) => {
             width: 200
         },
         {
-            Header : 'Unit',
-            accessor : 'unit',
+            Header : 'Tujuan',
+            accessor : 'tujuan',
             sortType: 'basic',
         },
         {
             Header : 'APD',
             accessor : 'pelindung',
             sortType: 'basic',
-            width: 80
+            width: 80,
+            // Cell: ({row}) => <div></div>
         },
         {
             Header : 'Masuk',
@@ -73,17 +74,14 @@ const SingleDays = (props) => {
     return (
         <Div>
             <div className='single_header'>
-                <h2>{format(location.state.selectedDate, 'PPPP')}</h2>
+                <h2>{format(location.state.selectedDate, 'PPPP', {locale: id})}</h2>
                 <span>{totalVisitor} visitors</span>
             </div>
             <BaseTableWithAction 
                 columns={columns} 
                 data={data}
                 action={({row, data}) => (
-                    <Action onClick={() => {
-                        setCurrentId(data[row.index].id)
-                        // setModalOpen(true)
-                    }}/>
+                    <Action id={data[row.index].id} />
                 )}
             />
         </Div>
@@ -102,12 +100,12 @@ const Div = styled.div`
     }
 `
 
-const Action = ({onClick}) => {
+const Action = ({ id }) => {
     return (
-        <div className='table_action'>
-            <Button set='primary' size='sm' onClick={onClick}>
+        <Link to={`/update?id=${id}`}>
+            <Button set='primary' size='sm'>
                 Update
             </Button>
-        </div>
+        </Link>
     )
 }
