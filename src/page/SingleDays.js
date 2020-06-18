@@ -19,7 +19,7 @@ const SingleDays = () => {
     useEffect(() => {
         baseUrl.get(`api/list-kunjungan?page=1&search=${params.date}`)
         .then(res => {
-            // console.log(res.data);
+            console.log(res.data);
             setData(res.data.records);
             setTotalVisitor(res.data.total[0].totalRecords)
         })
@@ -51,6 +51,7 @@ const SingleDays = () => {
             Header : 'Tujuan',
             accessor : 'tujuan',
             sortType: 'basic',
+            width: 140
         },
         {
             Header : 'APD',
@@ -65,9 +66,21 @@ const SingleDays = () => {
             sortType: 'basic',
         },
         {
+            Header : 'Suhu 1',
+            accessor : 'suhu1',
+            sortType: 'basic',
+            width: 100
+        },
+        {
             Header : 'Keluar',
             accessor : 'keluar',
             sortType: 'basic',
+        },
+        {
+            Header : 'Suhu 2',
+            accessor : 'suhu2',
+            sortType: 'basic',
+            width: 100
         },
     ]
 
@@ -75,7 +88,7 @@ const SingleDays = () => {
         <Div>
             <div className='single_header'>
                 <h2>{format(location.state.selectedDate, 'PPPP', {locale: id})}</h2>
-                <span>{totalVisitor} visitors</span>
+                <span>{totalVisitor} Pengunjung</span>
             </div>
             <BaseTableWithAction 
                 columns={columns} 

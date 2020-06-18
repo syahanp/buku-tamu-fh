@@ -56,5 +56,5 @@ export default connect(mapStateToProps, { userSession })(App);
 
 const Content = styled.div`
     min-height: 90vh;
-    padding: 2rem 4rem;
+    padding: 2rem 3rem;
 `
