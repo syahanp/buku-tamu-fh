@@ -1,0 +1,62 @@
+@import '../../assets/colors.scss';
+
+.modal_custom_default {
+    position: absolute;
+    background-color: #fff;
+    top: 5%;
+    bottom : 5%;
+    left: 10%;
+    right: 10%;
+    overflow-y: auto !important;
+}
+
+.modal_container {
+    
+    .modal_header {
+        position: relative;
+        z-index: 9999;
+        width: 100%;
+        top: 0px;
+        left: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem !important;
+        border-bottom: 1px solid #dee2e6;
+        background-color: #fff;
+        
+        .title {
+            h4 {
+                display: block;
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+
+    .modal_body {
+        z-index: -1;
+        padding: 1.5rem 2rem;
+    }
+}
+
+.modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999999;
+    background-color: rgba(#000000, .5);
+}
+
+.modal_inputSuhu {
+    position: absolute;
+    background-color: #fff;
+    left: calc(50% - 200px);
+    top: 20%;
+    min-width: 400px;
+
+    &:focus {
+        outline: none;
+    }
+}

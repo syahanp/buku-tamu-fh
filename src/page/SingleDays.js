@@ -4,7 +4,6 @@ import { useLocation, useParams, Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import id from 'date-fns/locale/id';
 import {baseUrl} from '../api';
-// import color from '../assets/colors.scss';
 
 import {Button} from '../components/Buttons';
 import BaseTableWithAction from '../components/Table/BaseTableWithAction';
@@ -19,7 +18,7 @@ const SingleDays = () => {
     useEffect(() => {
         baseUrl.get(`api/list-kunjungan?page=1&search=${params.date}`)
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             setData(res.data.records);
             setTotalVisitor(res.data.total[0].totalRecords)
         })
