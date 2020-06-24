@@ -28,6 +28,10 @@ export const icon_hint = <FontAwesomeIcon icon={['fas', 'question-circle']} clas
 export const icon_pass_visible = <FontAwesomeIcon icon={['fas', 'eye']} className='fa-fw'/>
 export const icon_pass_invisible = <FontAwesomeIcon icon={['fas', 'eye-slash']} className='fa-fw'/>
 export const icon_times = <FontAwesomeIcon icon={['fas', 'times']} className='fa-fw'/>
+export const icon_true = <FontAwesomeIcon icon={['fas', 'check-circle']} className='fa-fw' style={{color: '#1DC96A'}} />;
+export const icon_false = <FontAwesomeIcon icon={['fas', 'times-circle']} className='fa-fw' style={{color: '#FF4D52'}} />;
+export const icon_search = <FontAwesomeIcon icon={['fas', 'search']} className='fa-fw' />;
+export const icon_refresh = <FontAwesomeIcon icon={['fas', 'sync']} className='fa-fw' />;
 
 // MENU ICON
 export const icon_home = <FontAwesomeIcon icon={['fas', 'home']} className='fa-fw'/>
