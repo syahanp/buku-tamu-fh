@@ -7,7 +7,6 @@ const Home = () => {
 
     return (
         <Div>
-
             <MainCalendar />
         </Div>
     )

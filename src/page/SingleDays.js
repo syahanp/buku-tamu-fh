@@ -10,6 +10,7 @@ import {Button} from '../components/Buttons';
 import BaseTableWithAction from '../components/Table/BaseTableWithAction';
 import Searchbar from '../components/Searchbar';
 import { toast } from 'react-toastify';
+import { useDidUpdateEffect } from '../Hooks';
 
 const SingleDays = () => {
     const params = useParams();
@@ -17,8 +18,10 @@ const SingleDays = () => {
     
     const [query, setQuery] = useState('');
     const [data, setData] = useState([]);
-    const [isRefreshing, setRefreshing] = useState(false);
+    const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1)
     const [totalVisitor, setTotalVisitor] = useState(0);
+    const [isRefreshing, setRefreshing] = useState(false);
 
     const getData = () => {
         setRefreshing(true)
@@ -29,7 +32,9 @@ const SingleDays = () => {
         .then(res => {
             // console.log(res.data);
             setData(res.data.records);
+            setPage(1)
             setTotalVisitor(res.data.total[0].totalRecords)
+            setTotalPage(res.data.total[0].totalPage)
             setRefreshing(false)
         })
         .catch(err => {
@@ -41,8 +46,6 @@ const SingleDays = () => {
             setRefreshing(false)
         })
     }
-
-    
 
     useEffect(() => {
         setInterval(getData, 300000) // 5 menit
@@ -56,11 +59,28 @@ const SingleDays = () => {
             // console.log(res.data);
             setData(res.data.records);
             setTotalVisitor(res.data.total[0].totalRecords)
+            setTotalPage(res.data.total[0].totalPages)
         })
         .catch(err => {
             console.log(err.response);
         })
     }, [query])
+
+    useDidUpdateEffect(() => { 
+        let url
+        
+        if (query) url = `api/list-kunjungan?page=${page}&search=${params.date}&find=${query}`
+        url = `api/list-kunjungan?page=${page}&search=${params.date}`
+
+        baseUrl.get(url)
+        .then(res => {
+            setData([...data, ...res.data.records]);
+        })
+        .catch(err => {
+            console.log(err.response);
+        })
+
+    }, [page])
 
     let columns = [
         {
@@ -149,12 +169,28 @@ const SingleDays = () => {
                     <Action id={data[row.index].id} />
                 )}
             />
+
+            <br/>
+
+            <Button 
+                set="primary" 
+                size='lg'
+                isVisible={page < totalPage}
+                onClick={() => setPage(page+1)}
+            >
+                Muat Lebih Banyak
+            </Button>
+
+            <br/>
         </Div>
     )
 }
 export default SingleDays
 
 const Div = styled.div`
+    padding-bottom: 2rem;
+    text-align: center;
+
     .single_header {
         text-align: center;
         margin-bottom: 1.5rem;
