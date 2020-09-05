@@ -9,15 +9,13 @@ import { icon_home, icon_setting } from './Icon';
 import color from '../assets/colors.scss';
 
 const Navbar = ({ userSession }) => {
-    const location = useLocation();
-
     
     return (
         <Div>
             <div className='logo'></div>
             <div className='menu'>
                 <Link to='/' className='active'>{icon_home} Home</Link>
-                <Link to='/setting'> {icon_setting} Settings</Link>
+                {/* <Link to='/setting'> {icon_setting} Settings</Link> */}
             </div>
             <div className='logout' onClick={()=> userSession('logout')}> Logout </div>
         </Div>

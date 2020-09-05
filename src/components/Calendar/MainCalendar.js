@@ -19,23 +19,27 @@ import WeekdaysCell from './WeekdaysCell';
 import { baseUrl } from '../../api';
 
 const MainCalendar = () => {
-    const [isLoaded, setLoaded] = useState(false)
-    const [currentMonth, setCurrentMonth] = useState(new Date())
-    const [totalVisitorPerDay, setTotalPerDay] = useState([])
+    const [isLoaded, setLoaded] = useState(false);
+    const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [totalVisitorPerDay, setTotalPerDay] = useState([]);
+    const [isError, setError] = useState(false)
 
     useEffect(() => {
+        setLoaded(false);
+        setError(false)
+
         baseUrl.get(`api/calendar/monthly?tanggal=${format(currentMonth, 'yyyy-MM-dd')}`)
         .then(res => {
-            console.log(res.data);
             setTotalPerDay(res.data)
             setLoaded(true)
         })
         .catch(err => {
-            console.log(err.response);
+            setLoaded(true)
+            setError(true)
         })
-    }, [])
+    }, [currentMonth])
 
-    const renderWeekdays = useCallback(() => {
+    const RenderWeekdays = useCallback(() => {
         const dateFormat = 'EEEE'
         let weekdays = []
 
@@ -53,7 +57,7 @@ const MainCalendar = () => {
         )
     }, [currentMonth])
 
-    const renderDaysCell = useCallback(() => {
+    const RenderDaysCell = useCallback(() => {
         const monthStart = startOfMonth(currentMonth);
         const monthEnd = endOfMonth(monthStart);
         const startDate = startOfWeek(monthStart);
@@ -74,6 +78,7 @@ const MainCalendar = () => {
                 store = [
                     ...store, 
                     <DaysCell 
+                        key={i}
                         day={setDay} 
                         selectedDate={day} 
                         currentDate={currentDate}
@@ -94,14 +99,30 @@ const MainCalendar = () => {
 
     return (
         <Div>
-            <Header month={currentMonth} setMonth={x => setCurrentMonth(x)} />
+            <Header month={currentMonth} setMonth={x => setCurrentMonth(x)} isLoading={!isLoaded} />
 
-            <div className='weekdays'>
-                {renderWeekdays()}
-            </div>
-            <div className='days'>
-                { isLoaded && renderDaysCell()}
-            </div>
+            {
+                isLoaded && !isError &&
+                <div className='weekdays'>
+                    <RenderWeekdays />
+                </div>
+            }
+
+            {
+                isLoaded && !isError &&
+                <div className='days'>
+                    <RenderDaysCell />
+                </div>
+            }
+
+            {
+                isError &&
+                <div className='error'>
+                    <img alt='not found' src={require('../../assets/calendar.svg')}/>
+
+                    <h1>Data Tidak Ditemukan</h1>
+                </div>
+            }
         </Div>
     )
 }
@@ -131,6 +152,17 @@ const Div = styled.div`
         border-left: 1px solid ${color.tableBorder};
         border-right: 1px solid ${color.tableBorder};
         border-top: 1px solid ${color.tableBorder};
+    }
+
+    .error {
+        padding: 1rem 0rem;
+        text-align: center;
+
+        img {
+            width: auto;
+            height: auto;
+            max-width: 380px;
+        }
     }
 
 `
